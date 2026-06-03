@@ -1,0 +1,268 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+    <!-- SHIPPING DETAILS -->
+
+    <div class="col-lg-8">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-header bg-dark text-white">
+
+                <h4 class="mb-0">
+
+                    <i class="bi bi-truck"></i>
+
+                    Shipping Information
+
+                </h4>
+
+            </div>
+
+            <div class="card-body p-4">
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+
+                                Full Name
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="full_name"
+                                class="form-control"
+                                placeholder="Enter Full Name"
+                                required>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+
+                                Phone Number
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="phone"
+                                class="form-control"
+                                placeholder="Enter Phone Number"
+                                required>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Complete Address
+
+                        </label>
+
+                        <textarea
+                            name="address"
+                            class="form-control"
+                            rows="4"
+                            placeholder="House No, Street, Area"
+                            required></textarea>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                                City
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="city"
+                                class="form-control"
+                                placeholder="City">
+
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                                State
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="state"
+                                class="form-control"
+                                placeholder="State">
+
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                                Pincode
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="pincode"
+                                class="form-control"
+                                placeholder="Pincode">
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-success btn-lg w-100">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        Place Order
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ORDER SUMMARY -->
+<div class="col-lg-4">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-primary text-white">
+
+            <h5 class="mb-0">
+                <i class="bi bi-receipt"></i>
+                Order Summary
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            {% for item in products %}
+
+            <div class="d-flex mb-3">
+
+                <img src="{{ item.product.image }}"
+                     width="60"
+                     height="60"
+                     class="rounded me-2">
+
+                <div>
+
+                    <small class="fw-bold">
+                        {{ item.product.name }}
+                    </small>
+
+                    <br>
+
+                    <small>
+                        Qty: {{ item.quantity }}
+                    </small>
+
+                    <br>
+
+                    <small class="text-success">
+
+                        ₹{{ item.subtotal }}
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+            <hr>
+
+            <div class="d-flex justify-content-between">
+
+                <span>Subtotal</span>
+
+                <strong>
+
+                    ₹{{ total }}
+
+                </strong>
+
+            </div>
+
+            <div class="d-flex justify-content-between">
+
+                <span>Shipping</span>
+
+                <strong class="text-success">
+
+                    Free
+
+                </strong>
+
+            </div>
+
+            <hr>
+
+            <div class="d-flex justify-content-between">
+
+                <h5>Total</h5>
+
+                <h5 class="text-success">
+
+                    ₹{{ total }}
+
+                </h5>
+
+            </div>
+
+            <div class="alert alert-success mt-3">
+
+                <i class="bi bi-shield-check"></i>
+
+                Secure Checkout
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+              
+
+</div>
+
+{% endblock %}
